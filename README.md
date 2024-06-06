@@ -3,31 +3,39 @@ Design of APB Slave Memory Model in Verilog and built a verification environment
 
 <details>
   <Summary> APB Protocol Spec </Summary>
+
+  #### In general, the primary goal of a simple system bus is to allow software(running on a processor) to communicate with other hardware in the SOC. The APB Interface is designed for accessing the programmable control registers of peripheral devices. APB peripherals are typically connected to the main memory system using an APB bridge. For example, bridge from AHB to APB could be used to connect a number of APB peripherals to an AHB memory system.
+
+  ![image](https://github.com/lmadem/APB_Slave_Verification/assets/93139766/01f008d7-a43c-47c7-8796-fc2198665baf)
+
+  #### The APB is part of the AMBA(Advanced Microcontroller Bus Architecture) protocol family. It provides a low-cost interface that is optimized for minimal power consumption and reduced interface complexity. The APB interfaces to any peripherals that are low-bandwidth and do not require the high performance of a pipelined bus interface. The APB interface is not pipelined and is a simple, synchronous protocol. 
+  
 </details>
 
 
 <details>
-  <summary> Defining the black box design of DUAL-PORT RAM </summary>
+  <summary> Defining the black box design of APB Slave Memory Model </summary>
 
-  ### In simple terms, DPRAM is a random-access memory that supports write and read operations at the same time
+  #### Designed a simple memory model which follows APB Synchronous protocol in Verilog. Every transfer takes at least two cycles to complete. Prefix P denotes AMBA 3 APB Signals (ex. PCLK, PSEL ....).
 
-  <li> Input Ports : clk, reset, wr_en, rd_en, wr_addr, rd_addr, data_in </li>
+  <li> Input Ports : PCLK, PRESETn, PSEL, PENABLE, PWRITE, PADDR, PWDATA </li>
 
-  <li> Output Ports : data_out </li>
+  <li> Output Ports : PRDATA, PREADY </li>
 
   #### Input Signals Description
 
-  <li> clk     : clock </li>
-  <li> reset   : Synchronous reset </li>
-  <li> wr_en   : Write enable control signal, active high </li>
-  <li> rd_en   : Read enable control signal, active high </li>
-  <li> wr_addr : 4 bit write address </li>
-  <li> rd_addr : 4 bit read address </li>
-  <li> data_in : 8 bit data input </li>
+  <li> PCLK       : Clock </li>
+  <li> PRESETn    : Asynchronous reset, active low </li>
+  <li> PSEL       : APB Select Signal, active high </li>
+  <li> PENABLE    : APB Enable Signal, active high </li>
+  <li> PWRITE     : APB Write/read Signal, PWRITE = 1 for Write and PWRITE = 0 for Read </li>
+  <li> PADDR      : APB address Signal, 32 bit wide </li>
+  <li> PWDATA     : APB Write Data Signal, 32 bit wide </li>
 
   #### Output Signals Description
 
-  <li> data_out : 8 bit data output </li>
+  <li> PRDATA     : APB Read Data Signal, 32 bit wide </li>
+  <li> PREADY     : APB Ready Signal, Active High </li>
 
   #### Black Box Design
 
