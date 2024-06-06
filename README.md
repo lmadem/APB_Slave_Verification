@@ -2,6 +2,11 @@
 Design of APB Slave Memory Model in Verilog and built a verification environment in UVM architecture. The main intension of this repository is to document the verification plan and test case implementation in UVM testbench environment and have a hands-on exercise on APB Protocol.
 
 <details>
+  <Summary> APB Protocol Spec </Summary>
+</details>
+
+
+<details>
   <summary> Defining the black box design of DUAL-PORT RAM </summary>
 
   ### In simple terms, DPRAM is a random-access memory that supports write and read operations at the same time
