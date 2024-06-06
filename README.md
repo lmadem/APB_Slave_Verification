@@ -66,9 +66,12 @@ Design of APB Slave Memory Model in Verilog and built a verification environment
 
   #### APB Read without Wait States
 
-  
+  ![image](https://github.com/lmadem/APB_Slave_Verification/assets/93139766/c2e64ab8-c8c7-4d9f-910f-1a78f62a05fb)
 
-  
+   #### APB Read with Wait States
+
+   ![image](https://github.com/lmadem/APB_Slave_Verification/assets/93139766/ab242e25-7362-4b28-a945-07c7d796f58f)
+
 
   <li> This is a simple APB Slave Model implemented in verilog. Please check out the file "Design.sv" for verilog code</li>
   
