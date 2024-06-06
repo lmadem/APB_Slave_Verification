@@ -1,14 +1,14 @@
 # APB Slave Verification in UVM Environment
-Design of APB Slave Memory Model in Verilog and built a verification environment in UVM architecture. The main intension of this repository is to document the verification plan and test case implementation in UVM testbench environment and have a hands-on exercise on APB Protocol.
+Design of APB Slave Memory Model in Verilog and built a verification environment in UVM architecture. The main intension of this repository is to document the verification plan and test case implementation in UVM testbench environment and have a hands-on exercise on APB Protocol
 
 <details>
   <Summary> APB Protocol Spec </Summary>
 
-  #### In general, the primary goal of a simple system bus is to allow software(running on a processor) to communicate with other hardware in the SOC. The APB Interface is designed for accessing the programmable control registers of peripheral devices. APB peripherals are typically connected to the main memory system using an APB bridge. For example, bridge from AHB to APB could be used to connect a number of APB peripherals to an AHB memory system.
+  #### In general, the primary goal of a simple system bus is to allow software(running on a processor) to communicate with other hardware in the SOC. The APB Interface is designed for accessing the programmable control registers of peripheral devices. APB peripherals are typically connected to the main memory system using an APB bridge. For example, bridge from AHB to APB could be used to connect a number of APB peripherals to an AHB memory system
 
   ![image](https://github.com/lmadem/APB_Slave_Verification/assets/93139766/01f008d7-a43c-47c7-8796-fc2198665baf)
 
-  #### The APB is part of the AMBA(Advanced Microcontroller Bus Architecture) protocol family. It provides a low-cost interface that is optimized for minimal power consumption and reduced interface complexity. The APB interfaces to any peripherals that are low-bandwidth and do not require the high performance of a pipelined bus interface. The APB interface is not pipelined and is a simple, synchronous protocol. 
+  #### The APB is part of the AMBA(Advanced Microcontroller Bus Architecture) protocol family. It provides a low-cost interface that is optimized for minimal power consumption and reduced interface complexity. The APB interfaces to any peripherals that are low-bandwidth and do not require the high performance of a pipelined bus interface. The APB interface is not pipelined and is a simple, synchronous protocol 
   
 </details>
 
@@ -16,7 +16,9 @@ Design of APB Slave Memory Model in Verilog and built a verification environment
 <details>
   <summary> Defining the black box design of APB Slave Memory Model </summary>
 
-  #### Designed a simple memory model which follows APB Synchronous protocol in Verilog. Every transfer takes at least two cycles to complete. Prefix P denotes AMBA 3 APB Signals (ex. PCLK, PSEL ....).
+  #### Designed a simple memory model which follows APB Synchronous protocol in Verilog. Every transfer takes at least two cycles to complete
+  
+  #### Prefix P denotes AMBA 3 APB Signals (ex. PCLK, PSEL ....)
 
   <li> Input Ports : PCLK, PRESETn, PSEL, PENABLE, PWRITE, PADDR, PWDATA </li>
 
@@ -41,8 +43,34 @@ Design of APB Slave Memory Model in Verilog and built a verification environment
 
   ![image](https://github.com/lmadem/DPRAM/assets/93139766/899a5cbf-4f4a-4ff5-a67b-499e9c8d2034)
 
+  #### APB Operating States : It operates in two phases, setup phase and access phase
 
-  <li> This is a simple DUAL-PORT RAM design implemented in verilog. Please check out the file "DPRAM.v" for verilog code</li>
+  ##### SETUP PHASE
+
+  <li> PSEL = 1 </li>
+  <li> PWRITE = 1 </li>
+  <li> PADDR = PADDR </li>
+  <li> PWDATA = PWDATA </li>
+
+  ##### ACCESS PHASE
+
+  <li> PENABLE = 1 </li>
+
+  #### APB Write without Wait States
+
+  ![image](https://github.com/lmadem/APB_Slave_Verification/assets/93139766/2c4d9dc6-c41b-41db-a39d-75b12614cb28)
+
+  #### APB Write with Wait States
+
+  ![image](https://github.com/lmadem/APB_Slave_Verification/assets/93139766/928a3d8c-f8e2-403e-9633-5b384f690891)
+
+  #### APB Read without Wait States
+
+  
+
+  
+
+  <li> This is a simple APB Slave Model implemented in verilog. Please check out the file "Design.sv" for verilog code</li>
   
 </details>
 
